@@ -41,7 +41,7 @@ def print_quadratic(m):
         else:
             cop = ' - '
 
-        cstr = cop + str(c)
+        cstr = cop + str(abs(c))
 
     return fstr.format(astr, bstr, cstr)
 
