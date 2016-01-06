@@ -49,5 +49,9 @@ def load_points_sets_from_file(fname):
 
 
 point_sets = load_points_sets_from_file('test_data/point_sets1.dat')
+of = open('test_data/point_sets1_eqs.out', 'w')
+
 for point_set in point_sets:
-    augmatrix = mrm.make_coeff_matrix
+    raw_matrix = mrm.make_coeff_matrix(point_set)
+    reduced_matrix = mrm.reduce_matrix(raw_matrix)
+    of.write(pp.print_quadratic(reduced_matrix) + '\n')
