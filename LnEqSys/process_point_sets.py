@@ -3,14 +3,16 @@ import print_polynomial as pp
 from fractions import Fraction
 
 
-def convert_string_to_points(point_string):
+def convert_to_point(point_string):
     """
-      >>> convert_string_to_point('(3, 4)\\n')
+      >>> convert_to_point('(3, 4)\\n')
       (Fraction(3, 1), Fraction(4, 1))
-      >>> type(convert_string_to_point('(3, 4)')[0])
+      >>> type(convert_to_point('(3, 4)')[0])
       <class 'fractions.Fraction'>
-      >>> convert_string_to_point('(3/4, 1/3)\\n')
+      >>> convert_to_point('(3/4, 1/3)\\n')
       (Fraction(3, 4), Fraction(1, 3))
+      >>> convert_to_point(' (4/5, 7) ')
+      (Fraction(4, 5), Fraction(7, 1))
     """
     coords = list(point_string.strip().split(', '))
     coords[0] = coords[0].lstrip('(')
@@ -23,14 +25,13 @@ def convert_string_to_points(point_string):
 
 def load_points_sets_from_file(fname):
     """
-       >>> len(load_points_from_file('test_data/point_sets1.dat'))
+       >>> points = load_points_sets_from_file('test_data/point_sets1.dat')
+       >>> len(points)
        5
-    """
-    """
-       >>> load_points_from_file('test_data/point_sets1.dat')[0]
-       (Fraction(1, 1), Fraction(15, 1))
-       >>> load_points_from_file('test_data/point_sets1.dat')[1]
-       (Fraction(3, 1), Fraction(31, 1))
+       >>> len(points[1])
+       3
+       >>> points[2][2][0]
+       Fraction(-4, 5)
     """
     try:
         f = open(fname, 'r')
@@ -40,10 +41,13 @@ def load_points_sets_from_file(fname):
 
     points = f.readlines()
     f.close()
-    pvals = [convert_string_to_point(pval) for pval in pvals]
-    return pvals
+    points = [three_points.split(';') for three_points in points]
+    for point_set in points:
+        for i, point in enumerate(point_set):
+            point_set[i] = convert_to_point(point)
+    return points
 
 
-if __name__ == '__main__':
-    import doctest
-    doctest.testmod()
+point_sets = load_points_sets_from_file('test_data/point_sets1.dat')
+for point_set in point_sets:
+    augmatrix = mrm.make_coeff_matrix

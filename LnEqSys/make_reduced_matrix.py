@@ -1,24 +1,23 @@
 from fractions import Fraction
-from load_points import load_points_from_file
+from load_points import load_points_from_file as lpff
 
 
-def make_coeff_matrix(fname):
+def make_coeff_matrix(points):
     """
-      >>> len(make_coeff_matrix('test_data/3points2.dat'))
+      >>> len(make_coeff_matrix(lpff('test_data/3points2.dat')))
       3
-      >>> len(make_coeff_matrix('test_data/3points2.dat')[0])
+      >>> len(make_coeff_matrix(lpff('test_data/3points2.dat'))[0])
       4
-      >>> make_coeff_matrix('test_data/3points2.dat')[1]
+      >>> make_coeff_matrix(lpff('test_data/3points2.dat'))[1]
       [Fraction(4, 1), Fraction(2, 1), Fraction(1, 1), Fraction(17, 1)]
-      >>> make_coeff_matrix('test_data/3points1.dat')[0]
+      >>> make_coeff_matrix(lpff('test_data/3points1.dat'))[0]
       [Fraction(1, 1), Fraction(1, 1), Fraction(1, 1), Fraction(15, 1)]
-      >>> make_coeff_matrix('test_data/3points1.dat')[1]
+      >>> make_coeff_matrix(lpff('test_data/3points1.dat'))[1]
       [Fraction(9, 1), Fraction(3, 1), Fraction(1, 1), Fraction(31, 1)]
-      >>> make_coeff_matrix('test_data/3points1.dat')[2]
+      >>> make_coeff_matrix(lpff('test_data/3points1.dat'))[2]
       [Fraction(4, 1), Fraction(-2, 1), Fraction(1, 1), Fraction(6, 1)]
     """
     augmatrix = []
-    points = load_points_from_file(fname)
     for point in points:
         augmatrix.append([point[0]**2, point[0], Fraction(1, 1), point[1]])
     return augmatrix
@@ -26,17 +25,21 @@ def make_coeff_matrix(fname):
 
 def reduce_matrix(m):
     """
-      >>> reduce_matrix(make_coeff_matrix('test_data/3points1.dat'))[2]
+      >>> raw_matrix1 = make_coeff_matrix(lpff('test_data/3points1.dat'))
+      >>> reduced_matrix1 = reduce_matrix(raw_matrix1)
+      >>> reduced_matrix1[2]
       [Fraction(0, 1), Fraction(0, 1), Fraction(1, 1), Fraction(10, 1)]
-      >>> reduce_matrix(make_coeff_matrix('test_data/3points1.dat'))[1]
+      >>> reduced_matrix1[1]
       [Fraction(0, 1), Fraction(1, 1), Fraction(0, 1), Fraction(4, 1)]
-      >>> reduce_matrix(make_coeff_matrix('test_data/3points1.dat'))[0]
+      >>> reduced_matrix1[0]
       [Fraction(1, 1), Fraction(0, 1), Fraction(0, 1), Fraction(1, 1)]
-      >>> reduce_matrix(make_coeff_matrix('test_data/3points4.dat'))[2]
+      >>> raw_matrix4 = make_coeff_matrix(lpff('test_data/3points4.dat'))
+      >>> reduced_matrix4 = reduce_matrix(raw_matrix4)
+      >>> reduced_matrix4[2]
       [Fraction(0, 1), Fraction(0, 1), Fraction(1, 1), Fraction(20, 7)]
-      >>> reduce_matrix(make_coeff_matrix('test_data/3points4.dat'))[1]
+      >>> reduced_matrix4[1]
       [Fraction(0, 1), Fraction(1, 1), Fraction(0, 1), Fraction(-51, 28)]
-      >>> reduce_matrix(make_coeff_matrix('test_data/3points4.dat'))[0]
+      >>> reduced_matrix4[0]
       [Fraction(1, 1), Fraction(0, 1), Fraction(0, 1), Fraction(3, 14)]
     """
     # Make all leading coefficients 1
