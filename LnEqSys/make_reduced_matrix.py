@@ -1,9 +1,9 @@
 from fractions import Fraction
-from load_points import load_points_from_file as lpff
 
 
 def make_coeff_matrix(points):
     """
+      >>> from load_points import load_points_from_file as lpff
       >>> len(make_coeff_matrix(lpff('test_data/3points2.dat')))
       3
       >>> len(make_coeff_matrix(lpff('test_data/3points2.dat'))[0])
@@ -25,6 +25,7 @@ def make_coeff_matrix(points):
 
 def reduce_matrix(m):
     """
+      >>> from load_points import load_points_from_file as lpff
       >>> raw_matrix1 = make_coeff_matrix(lpff('test_data/3points1.dat'))
       >>> reduced_matrix1 = reduce_matrix(raw_matrix1)
       >>> reduced_matrix1[2]
