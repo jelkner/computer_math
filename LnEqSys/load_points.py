@@ -29,6 +29,8 @@ def load_points_from_file(fname):
        (Fraction(1, 2), Fraction(5, 6))
        >>> load_points_from_file('test_data/3points3.dat')[1]
        (Fraction(3, 1), Fraction(17, 1))
+       >>> type(load_points_from_file('test_data/3points3.dat'))
+       <class 'list'>
     """
     try:
         f = open(fname, 'r')

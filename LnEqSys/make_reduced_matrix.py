@@ -3,19 +3,30 @@ from fractions import Fraction
 
 def make_coeff_matrix(points):
     """
-      >>> from load_points import load_points_from_file as lpff
-      >>> len(make_coeff_matrix(lpff('test_data/3points2.dat')))
-      3
-      >>> len(make_coeff_matrix(lpff('test_data/3points2.dat'))[0])
-      4
-      >>> make_coeff_matrix(lpff('test_data/3points2.dat'))[1]
-      [Fraction(4, 1), Fraction(2, 1), Fraction(1, 1), Fraction(17, 1)]
-      >>> make_coeff_matrix(lpff('test_data/3points1.dat'))[0]
+    Take a list of three tuples containing pairs of Fraction objects
+    representing the (x, y) coordinates of non-colinear points, and return a
+    3 by 4 augmented matrix (a list of length 3 containing lists of length
+    4 of Fraction objects) with the coefficients for a, b, and c and the
+    y value for ax^2 + bx + c with the given x.
+
+      >>> point_list1 = [(Fraction(1, 1), Fraction(15, 1))]
+      >>> point_list1.append((Fraction(3, 1), Fraction(31, 1)))
+      >>> point_list1.append((Fraction(-2, 1), Fraction(6, 1)))
+      >>> make_coeff_matrix(point_list1)[0]
       [Fraction(1, 1), Fraction(1, 1), Fraction(1, 1), Fraction(15, 1)]
-      >>> make_coeff_matrix(lpff('test_data/3points1.dat'))[1]
+      >>> make_coeff_matrix(point_list1)[1]
       [Fraction(9, 1), Fraction(3, 1), Fraction(1, 1), Fraction(31, 1)]
-      >>> make_coeff_matrix(lpff('test_data/3points1.dat'))[2]
+      >>> make_coeff_matrix(point_list1)[2]
       [Fraction(4, 1), Fraction(-2, 1), Fraction(1, 1), Fraction(6, 1)]
+      >>> point_list2 = [(Fraction(1, 2), Fraction(5, 6))]
+      >>> point_list2.append((Fraction(3, 1), Fraction(17, 1)))
+      >>> point_list2.append((Fraction(-4, 5), Fraction(11, 1)))
+      >>> make_coeff_matrix(point_list2)[0]
+      [Fraction(1, 4), Fraction(1, 2), Fraction(1, 1), Fraction(5, 6)]
+      >>> make_coeff_matrix(point_list2)[1]
+      [Fraction(9, 1), Fraction(3, 1), Fraction(1, 1), Fraction(17, 1)]
+      >>> make_coeff_matrix(point_list2)[2]
+      [Fraction(16, 25), Fraction(-4, 5), Fraction(1, 1), Fraction(11, 1)]
     """
     augmatrix = []
     for point in points:
@@ -25,23 +36,29 @@ def make_coeff_matrix(points):
 
 def reduce_matrix(m):
     """
-      >>> from load_points import load_points_from_file as lpff
-      >>> raw_matrix1 = make_coeff_matrix(lpff('test_data/3points1.dat'))
-      >>> reduced_matrix1 = reduce_matrix(raw_matrix1)
-      >>> reduced_matrix1[2]
-      [Fraction(0, 1), Fraction(0, 1), Fraction(1, 1), Fraction(10, 1)]
-      >>> reduced_matrix1[1]
-      [Fraction(0, 1), Fraction(1, 1), Fraction(0, 1), Fraction(4, 1)]
+    Take a 3 by 4 augmented matrix (a list of length 3 containing lists of
+    length 4 of Fraction objects) with the coefficients for a, b, and c and the
+    y value for ax^2 + bx + c with the given x, and return the augmented matrix
+    in reduced row echelon form.
+
+      >>> point_list1 = [(Fraction(1, 1), Fraction(15, 1))]
+      >>> point_list1.append((Fraction(3, 1), Fraction(31, 1)))
+      >>> point_list1.append((Fraction(-2, 1), Fraction(6, 1)))
+      >>> augmatrix1 = make_coeff_matrix(point_list1)   
+      >>> reduced_matrix1 = reduce_matrix(augmatrix1)
       >>> reduced_matrix1[0]
       [Fraction(1, 1), Fraction(0, 1), Fraction(0, 1), Fraction(1, 1)]
-      >>> raw_matrix4 = make_coeff_matrix(lpff('test_data/3points4.dat'))
-      >>> reduced_matrix4 = reduce_matrix(raw_matrix4)
-      >>> reduced_matrix4[2]
-      [Fraction(0, 1), Fraction(0, 1), Fraction(1, 1), Fraction(20, 7)]
-      >>> reduced_matrix4[1]
-      [Fraction(0, 1), Fraction(1, 1), Fraction(0, 1), Fraction(-51, 28)]
-      >>> reduced_matrix4[0]
-      [Fraction(1, 1), Fraction(0, 1), Fraction(0, 1), Fraction(3, 14)]
+      >>> reduced_matrix1[1]
+      [Fraction(0, 1), Fraction(1, 1), Fraction(0, 1), Fraction(4, 1)]
+      >>> reduced_matrix1[2]
+      [Fraction(0, 1), Fraction(0, 1), Fraction(1, 1), Fraction(10, 1)]
+      >>> point_list2 = [(Fraction(1, 2), Fraction(5, 6))]
+      >>> point_list2.append((Fraction(3, 1), Fraction(17, 1)))
+      >>> point_list2.append((Fraction(-4, 5), Fraction(11, 1)))
+      >>> augmatrix2 = make_coeff_matrix(point_list2)   
+      >>> reduced_matrix2 = reduce_matrix(augmatrix2)
+      >>> reduced_matrix2[0]
+      [Fraction(1, 1), Fraction(0, 1), Fraction(0, 1), Fraction(2786, 741)]
     """
     # Make all leading coefficients 1
     for num, vals in enumerate(m):
