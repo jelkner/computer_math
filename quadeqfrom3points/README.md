@@ -1,9 +1,11 @@
 # Find the Quadratic Function Through 3 Points
 
 Find the quadratic function that contains three points with rational
-coordinates, and print out the result in form: f(x) = ax^2 + bx + c.
+coordinates, and print out the result in form::
 
-''process_point_sets.py'' loads the input from a text file in the following
+    f(x) = ax^2 + bx + c.
+
+**process_point_sets.py** loads the input from a text file in the following
 format::
 
     (s1x1, s1y1); (s1x2, s1y2); (s1x3, s1y3)
