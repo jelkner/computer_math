@@ -59,6 +59,10 @@ def reduce_matrix(m):
       >>> reduced_matrix2 = reduce_matrix(augmatrix2)
       >>> reduced_matrix2[0]
       [Fraction(1, 1), Fraction(0, 1), Fraction(0, 1), Fraction(2786, 741)]
+      >>> reduced_matrix2[1]
+      [Fraction(0, 1), Fraction(1, 1), Fraction(0, 1), Fraction(-24796, 3705)]
+      >>> reduced_matrix2[2]
+      [Fraction(0, 1), Fraction(0, 1), Fraction(1, 1), Fraction(4001, 1235)]
     """
     # Make all leading coefficients 1
     for num, vals in enumerate(m):

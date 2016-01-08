@@ -2,7 +2,7 @@
 from fractions import Fraction
 
 
-class LineqMatrix:
+class AugMatrix:
     """
     Defines a 3 by 4 matrix representing a system of three linear equations
     in three variables with Fraction values.
@@ -10,7 +10,7 @@ class LineqMatrix:
     def __init__(self, elements):
         """
           >>> elements = [[3, 1, 2, 31], [1, 1, 2, 19], [1, 3, 2, 25]]
-          >>> lnsys = LineqMatrix(elements)
+          >>> lnsys = AugMatrix(elements)
           >>> lnsys.elements[1][2]
           Fraction(2, 1)
         """
@@ -21,7 +21,7 @@ class LineqMatrix:
     def __str__(self):
         """
           >>> elements = [[3, 1, 2, 31], [1, 1, 2, 19], [1, 3, 2, 25]]
-          >>> lnsys = LineqMatrix(elements)
+          >>> lnsys = AugMatrix(elements)
           >>> print(lnsys)
           [3    1    2  |  31]
           [1    1    2  |  19]
@@ -40,7 +40,7 @@ class LineqMatrix:
     def reduced_row_echelon(self):
         """
           >>> elements = [[3, 1, 2, 31], [1, 1, 2, 19], [1, 3, 2, 25]]
-          >>> lnsys = LineqMatrix(elements)
+          >>> lnsys = AugMatrix(elements)
         """
 
 if __name__ == '__main__':
