@@ -48,8 +48,8 @@ def load_points_sets_from_file(fname):
     return points
 
 
-point_sets = load_points_sets_from_file('test_data/point_sets1.dat')
-of = open('test_data/point_sets1_eqs.out', 'w')
+point_sets = load_points_sets_from_file('test_data.dat')
+of = open('test_data_eqs.out', 'w')
 
 for point_set in point_sets:
     raw_matrix = mrm.make_coeff_matrix(point_set)
